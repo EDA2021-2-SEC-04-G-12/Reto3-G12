@@ -79,11 +79,11 @@ def addDateIndex(datentry, avista):
     avistaentry = m.get(avistaIndex, avista['city'])
     if (avistaentry is None):
         entry = newCityEntry(avista['city'], avista)
-        lt.addLast(entry['lstavista'], avista)
+        lt.addLast(entry['lstcities'], avista)
         m.put(avistaIndex, avista['city'], entry)
     else:
         entry = me.getValue(avistaentry)
-        lt.addLast(entry['lstavista'], avista)
+        lt.addLast(entry['lstcities'], avista)
     return datentry
 
 
