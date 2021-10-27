@@ -36,8 +36,14 @@ operación solicitada
 
 def printMenu():
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("1- Inicializar analizador")
+    print("2- Cargar información en el catálogo")
+    print("3- Contar los avistamientos en una ciudad")
+    print("4- Contar los avistamientos por duración")
+    print("5- Contar avistamientos por hora/minutos del día")
+    print("6- Contar los avistamientos en un rango de fechas")
+    print("7- Contar los avistamientos de una zona geográfica")
+    print("8- Salir del programa")
 
 catalog = None
 
@@ -48,9 +54,15 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
+        print("\nInicializando....")
+        cont = controller.init()
 
     elif int(inputs[0]) == 2:
+        print("\nCargando información de los archivos ....")
+        controller.loadData(cont)
+        print('Avistamientos cargados: ' + str(controller.avistaSize(cont)))
+
+    elif int(inputs[0]) == 3:
         pass
 
     else:

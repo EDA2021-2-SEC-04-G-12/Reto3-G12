@@ -29,10 +29,25 @@ import csv
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
-# Inicialización del Catálogo de libros
+# Inicialización del Catálogo de avistamientos
+
+def init():
+    analyzer = model.newAnalyzer()
+    return analyzer
 
 # Funciones para la carga de datos
+
+def loadData(analyzer):
+    avistafile = cf.data_dir + 'UFOSS-utf8-small.csv'
+    input_file = csv.DictReader(open(avistafile, encoding="utf-8"),
+                                delimiter=",")
+    for avista in input_file:
+        model.addAvista(analyzer, avista)
+    return analyzer
 
 # Funciones de ordenamiento
 
 # Funciones de consulta sobre el catálogo
+
+def avistaSize(analyzer):
+    return model.avistaSize(analyzer)
