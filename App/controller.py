@@ -51,3 +51,10 @@ def loadData(analyzer):
 
 def avistaSize(analyzer):
     return model.avistaSize(analyzer)
+
+def indexHeight(analyzer):
+    return model.indexHeight(analyzer)
+
+
+def indexSize(analyzer):
+    return model.indexSize(analyzer)

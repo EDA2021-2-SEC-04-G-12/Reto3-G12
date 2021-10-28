@@ -63,7 +63,8 @@ while True:
         print('Avistamientos cargados: ' + str(controller.avistaSize(cont)))
 
     elif int(inputs[0]) == 3:
-        pass
+        print('Altura del árbol: ' + str(controller.indexHeight(cont)))
+        print('Elementos en el árbol: ' + str(controller.indexSize(cont)))
 
     else:
         sys.exit(0)

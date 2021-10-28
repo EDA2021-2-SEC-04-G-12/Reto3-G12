@@ -113,6 +113,13 @@ def newCityEntry(city, avista):
 def avistaSize(analyzer):
     return lt.size(analyzer['avista'])
 
+def indexHeight(analyzer):
+    return om.height(analyzer['datetime'])
+
+
+def indexSize(analyzer):
+    return om.size(analyzer['datetime'])
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def compareDates(date1, date2):
