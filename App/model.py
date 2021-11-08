@@ -52,6 +52,9 @@ def newAnalyzer():
     analyzer['avista'] = lt.newList('SINGLE_LINKED')
     analyzer['datetime'] = om.newMap(omaptype='RBT',
                                       comparefunction=compareDates)
+    analyzer['duration (seconds)'] = om.newMap(omaptype='RBT',
+                                        comparefunction= compareDurations)
+    
     return analyzer
 
 # Funciones para agregar informacion al catalogo
@@ -150,6 +153,13 @@ def compareDates(date1, date2):
     else:
         return -1
 
+def compareDurations(duration1,duration2): 
+    if (duration1 == duration2) : 
+        return 0 
+    elif (duration1 > duration2) : 
+        return 1
+    else: 
+        return -1 
 
 def compareCities(city1, city2):
     """
