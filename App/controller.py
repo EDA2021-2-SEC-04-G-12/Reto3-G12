@@ -23,6 +23,7 @@
 import config as cf
 import model
 import csv
+import datetime 
 
 
 """
@@ -58,3 +59,9 @@ def indexHeight(analyzer):
 
 def indexSize(analyzer):
     return model.indexSize(analyzer)
+
+def countAvista(analyzer,fechaInicial,fechaFinal) :
+    fecha_1 = datetime.date.fromisoformat(fechaInicial)
+    fecha_2 = datetime.date.fromisoformat(fechaFinal)
+    
+    return model.countAvistabyDate(analyzer,fecha_1,fecha_2)

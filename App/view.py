@@ -25,6 +25,7 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+import datetime 
 
 
 """
@@ -46,7 +47,19 @@ def printMenu():
     print("8- Salir del programa")
 
 catalog = None
-
+def printAvista(avista) : 
+    print(f"+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+    datetimes = avista['datetime']
+    dates = datetime.datetime.strptime(datetimes,'%Y-%m-%d %H:%M:%S')
+    date = dates.date()
+    strdate = datetime.datetime.strftime(date, "%Y-%m-%d")
+    city = avista['city']
+    state = avista['state']
+    country = avista['country']
+    shape = avista['shape']
+    duration = avista['duration (seconds)']
+    print(f"| {datetimes:24}| {strdate:15}| {city:22}| {state:11}| {country:14}| {shape:8}| {duration:19}| ")
+    print(f"+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
 """
 Menu principal
 """
@@ -65,6 +78,36 @@ while True:
     elif int(inputs[0]) == 3:
         print('Altura del árbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el árbol: ' + str(controller.indexSize(cont)))
+    elif int(inputs[0]) == 6 : 
+        fechaInicial = input("Ingrese la fecha inicial (AAAA-MM-DD): ")
+        fechaFinal = input("Ingrese la fecha final (AAAA-MM-DD): ")
+        prueba = controller.countAvista(cont,fechaInicial,fechaFinal)
+        size = lt.size(prueba)
+        print(f"El total de avistamientos entre las fechas seleccionadas fue: {size}")
+       
+        print("Los primeros tres elementos en el rango son: \n")
+        print(f"+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        print(f"| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
+        i = 1 
+        while i <=3 : 
+            element = lt.getElement(prueba,i)
+            printAvista(element)
+            i+=1 
+        i = size  
+        while i > size-3 : 
+            element = lt.getElement(prueba,i)
+            printAvista(element)
+            i-=1
+
+        
+
+
+            
+
+        
+
+
+        
 
     else:
         sys.exit(0)

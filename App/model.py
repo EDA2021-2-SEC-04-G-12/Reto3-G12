@@ -26,13 +26,16 @@
 
 
 import config as cf
+import sys
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as m
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import mergesort as mer
 from DISClib.ADT import orderedmap as om
 import datetime
 assert cf
+sys.setrecursionlimit(10**6)
 
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
@@ -120,7 +123,24 @@ def indexHeight(analyzer):
 def indexSize(analyzer):
     return om.size(analyzer['datetime'])
 
+def countAvistabyDate(analyzer,fechaInicial,fechaFinal) : 
+    valores = om.values(analyzer['datetime'],fechaInicial,fechaFinal)
+    avista = lt.newList('ARRAY_LIST')
+    i = 1
+    while i <= lt.size(valores) : 
+        value = lt.getElement(valores,i)
+        for element in lt.iterator(value['lstavista']) : 
+            lt.addLast(avista,element)
+        i += 1 
+    mer.sort(avista,compareDateTime)
+    return avista
+
+
 # Funciones utilizadas para comparar elementos dentro de una lista
+def compareDateTime (elem1,elem2) : 
+    date_1 =  datetime.datetime.strptime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
+    date_2 =  datetime.datetime.strptime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
+    return date_1 < date_2
 
 def compareDates(date1, date2):
     if (date1 == date2):
