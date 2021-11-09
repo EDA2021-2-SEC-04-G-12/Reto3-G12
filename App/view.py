@@ -24,6 +24,7 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import mapstructure as ht
 assert cf
 import datetime 
 
@@ -47,7 +48,14 @@ def printMenu():
     print("8- Salir del programa")
 
 catalog = None
-def printAvista(avista) : 
+
+def printDatos(avista):
+    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+    print(avista)
+    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+
+
+def printAvista(avista): 
     print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
     datetimes = avista['datetime']
     dates = datetime.datetime.strptime(datetimes,'%Y-%m-%d %H:%M:%S')
@@ -72,8 +80,19 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("\nCargando información de los archivos ....")
-        controller.loadData(cont)
-        print('Avistamientos cargados: ' + str(controller.avistaSize(cont)))
+        datos = controller.loadData(cont)
+        size = controller.avistaSize(cont)
+        print('Avistamientos cargados: ' + str(size))
+        i = 1
+        while i <= 5: 
+            element = ht.get(datos['avista'],i)
+            printDatos(element)
+            i += 1 
+        i = size  
+        while i > size - 5: 
+            element = ht.get(datos['avista'],i)
+            printDatos(element)
+            i -= 1
 
     elif int(inputs[0]) == 3:
         print('Altura del árbol: ' + str(controller.indexHeight(cont)))
