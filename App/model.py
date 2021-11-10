@@ -46,11 +46,14 @@ los mismos.
 
 def newAnalyzer():
     analyzer = {'avista': None,
+                'city': None,
                 'datetime': None,
                 'duration (seconds)': None
                 }
 
     analyzer['avista'] = lt.newList('SINGLE_LINKED')
+    analyzer['city'] = om.newMap(omaptype='RBT',
+                                comparefunction=compareCities)
     analyzer['datetime'] = om.newMap(omaptype='RBT',
                                       comparefunction=compareDates)
     analyzer['duration (seconds)'] = om.newMap(omaptype='RBT',
@@ -127,6 +130,14 @@ def indexHeight(analyzer):
 def indexSize(analyzer):
     return om.size(analyzer['datetime'])
 
+def countAvistabyCity(analyzer, city):
+    lst = om.get(analyzer['city'], city)
+    totAvista = 0
+    for lstCity in lt.iterator(lst):
+        totAvista += lt.size(lstCity['lstAvista'])
+    return totAvista
+
+
 def countAvistabyDate(analyzer,fechaInicial,fechaFinal) : 
     valores = om.values(analyzer['datetime'],fechaInicial,fechaFinal)
     avista = lt.newList('ARRAY_LIST')
@@ -163,9 +174,6 @@ def compareDurations(duration1,duration2):
         return -1 
 
 def compareCities(city1, city2):
-    """
-    Compara dos tipos de crimenes
-    """
     city = me.getKey(city2)
     if (city1 == city):
         return 0
