@@ -131,11 +131,16 @@ def indexSize(analyzer):
     return om.size(analyzer['datetime'])
 
 def countAvistabyCity(analyzer, city):
-    lst = om.get(analyzer['city'], city)
-    totAvista = 0
-    for lstCity in lt.iterator(lst):
-        totAvista += lt.size(lstCity['lstAvista'])
-    return totAvista
+    valores = om.get(analyzer['city'],city)
+    avista = lt.newList('ARRAY_LIST')
+    i = 1
+    while i <= lt.size(valores) : 
+        value = lt.getElement(valores,i)
+        for element in lt.iterator(value['lstavista']) : 
+            lt.addLast(avista,element)
+        i += 1 
+    mer.sort(avista,compareCities)
+    return avista
 
 
 def countAvistabyDate(analyzer,fechaInicial,fechaFinal) : 
