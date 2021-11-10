@@ -46,10 +46,14 @@ los mismos.
 
 def newAnalyzer():
     analyzer = {'avista': None,
-                'datetime': None
+                'city': None,
+                'datetime': None,
+                'duration (seconds)': None
                 }
 
     analyzer['avista'] = lt.newList('SINGLE_LINKED')
+    analyzer['city'] = om.newMap(omaptype='RBT',
+                                comparefunction=compareCities)
     analyzer['datetime'] = om.newMap(omaptype='RBT',
                                       comparefunction=compareDates)
     analyzer['duration (seconds)'] = om.newMap(omaptype='RBT',
@@ -63,6 +67,7 @@ def addAvista(analyzer, avista):
     lt.addLast(analyzer['avista'], avista)
     updateDateIndex(analyzer['datetime'], avista)
     updateDurationIndex(analyzer['duration (seconds)'],avista)
+    upCityIndex(analyzer['city'], avista)
     return analyzer
 
 
@@ -116,6 +121,31 @@ def addDurationIndex(durationEntry,avista) :
         entry = me.getValue(avistaentry)
         lt.addLast(entry['lstAvista'],avista)
     return durationEntry
+def upCityIndex(map, avista):
+    city = avista['city']
+    entry = om.get(map, city)
+    if entry is None:
+        cityentry = newDataEntry(avista)
+        om.put(map, city, cityentry)
+    else:
+        cityentry = me.getValue(entry)
+    addCityIndex(cityentry, avista)
+    return map
+
+
+def addCityIndex(cityentry, avista):
+    lst = cityentry['lstavista']
+    lt.addLast(lst, avista)
+    avistaIndex = cityentry['avistaIndex']
+    avistaentry = m.get(avistaIndex, avista['city'])
+    if (avistaentry is None):
+        entry = newCityEntry(avista['city'], avista)
+        lt.addLast(entry['lstcities'], avista)
+        m.put(avistaIndex, avista['city'], entry)
+    else:
+        entry = me.getValue(avistaentry)
+        lt.addLast(entry['lstcities'], avista)
+    return cityentry
 
 
 # Funciones para creacion de datos
@@ -164,6 +194,20 @@ def indexHeight(analyzer):
 def indexSize(analyzer):
     return om.size(analyzer['datetime'])
 #FUNCION REQUERIMIENTO 4 
+
+def countAvistabyCity(analyzer, city):
+    valores = om.get(analyzer['city'],city)
+    avista = lt.newList('ARRAY_LIST')
+    i = 1
+    while i <= lt.size(valores) : 
+        value = lt.getElement(valores,i)
+        for element in lt.iterator(value['lstavista']) : 
+            lt.addLast(avista,element)
+        i += 1 
+    mer.sort(avista,compareCities)
+    return avista
+
+
 def countAvistabyDate(analyzer,fechaInicial,fechaFinal) : 
     valores = om.values(analyzer['datetime'],fechaInicial,fechaFinal)
     avista = lt.newList('ARRAY_LIST')
@@ -202,9 +246,6 @@ def compareDurations(duration1,duration2):
         return -1 
 
 def compareCities(city1, city2):
-    """
-    Compara dos tipos de crimenes
-    """
     city = me.getKey(city2)
     if (city1 == city):
         return 0

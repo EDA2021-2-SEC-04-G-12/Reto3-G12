@@ -24,6 +24,7 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+from DISClib.DataStructures import mapstructure as ht
 assert cf
 import datetime 
 
@@ -47,7 +48,8 @@ def printMenu():
     print("8- Salir del programa")
 
 catalog = None
-def printAvista(avista) : 
+
+def printAvista(avista): 
     print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
     datetimes = avista['datetime']
     dates = datetime.datetime.strptime(datetimes,'%Y-%m-%d %H:%M:%S')
@@ -72,12 +74,33 @@ while True:
 
     elif int(inputs[0]) == 2:
         print("\nCargando información de los archivos ....")
-        controller.loadData(cont)
-        print('Avistamientos cargados: ' + str(controller.avistaSize(cont)))
+        datos = controller.loadData(cont)
+        size = controller.avistaSize(cont)
+        print('Avistamientos cargados: ' + str(size))
 
     elif int(inputs[0]) == 3:
+        city = input("Ingresa la ciudad: ")
+        datos = controller.countAvistabyCity(cont, city)
+        size = lt.size(datos)
+        print("El total de avistamientos en la ciudad seleccionada fue: " + str(size))
         print('Altura del árbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el árbol: ' + str(controller.indexSize(cont)))
+
+        print("Los primeros tres elementos en el rango son: \n")
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
+        i = 1 
+        while i <=3 : 
+            element = lt.getElement(datos,i)
+            printAvista(element)
+            i+=1 
+        i = size  
+        while i > size-3 : 
+            element = lt.getElement(datos,i)
+            printAvista(element)
+            i-=1
+
+
     elif int(inputs[0]) == 6 : 
         fechaInicial = input("Ingrese la fecha inicial (AAAA-MM-DD): ")
         fechaFinal = input("Ingrese la fecha final (AAAA-MM-DD): ")
