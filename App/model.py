@@ -46,7 +46,8 @@ los mismos.
 
 def newAnalyzer():
     analyzer = {'avista': None,
-                'datetime': None
+                'datetime': None,
+                'duration (seconds)': None
                 }
 
     analyzer['avista'] = lt.newList('SINGLE_LINKED')
