@@ -62,6 +62,7 @@ def newAnalyzer():
 def addAvista(analyzer, avista):
     lt.addLast(analyzer['avista'], avista)
     updateDateIndex(analyzer['datetime'], avista)
+    updateDurationIndex(analyzer['duration (seconds)'],avista)
     return analyzer
 
 
@@ -77,6 +78,16 @@ def updateDateIndex(map, avista):
     addDateIndex(datentry, avista)
     return map
 
+def updateDurationIndex(map,avista):
+    duration = avista['duration (seconds)']
+    entry = om.get(map,duration)
+    if entry is None : 
+        durationEntry = newDurationEntry(avista)
+        om.put(map,duration,durationEntry)
+    else : 
+        durationEntry = me.getValue(entry)
+    addDurationIndex(durationEntry,avista)
+    return map 
 
 def addDateIndex(datentry, avista):
     lst = datentry['lstavista']
@@ -92,6 +103,20 @@ def addDateIndex(datentry, avista):
         lt.addLast(entry['lstcities'], avista)
     return datentry
 
+def addDurationIndex(durationEntry,avista) : 
+    lst = durationEntry['lstAvista']
+    lt.addLast(lst,avista)
+    avistaDuration = durationEntry['avistaIndex']
+    avistaentry = m.get(avistaDuration, avista['duration (seconds)'])
+    if (avistaentry is None) : 
+        entry = newDurationEntry_2(avista)
+        lt.addLast(entry['lstAvista'],avista)
+        m.put(avistaDuration,avista['duration (seconds)'],entry)
+    else : 
+        entry = me.getValue(avistaentry)
+        lt.addLast(entry['lstAvista'],avista)
+    return durationEntry
+
 
 # Funciones para creacion de datos
 
@@ -103,6 +128,19 @@ def newDataEntry(avista):
     entry['lstavista'] = lt.newList('SINGLE_LINKED', compareDates)
     return entry
 
+def newDurationEntry(avista) : 
+    entry = {'avistaDuration': None, 'lstAvista': None}
+    entry['avistaIndex'] = m.newMap(numelements=30,
+                                        maptype='PROBING',
+                                        comparefunction=compareDurations)
+    entry['lstAvista'] = lt.newList('SINGLE_LINKED',compareDurations)
+    return entry 
+
+def newDurationEntry_2(duration,avista) : 
+    entry = {'avistaDuration': None, 'lstAvista':None}
+    entry['avistaDuration'] = duration
+    entry['lstavista'] = lt.newList('SINGLELINKED',compareDurations)
+    return entry  
 
 def newCityEntry(city, avista):
     """
@@ -125,7 +163,7 @@ def indexHeight(analyzer):
 
 def indexSize(analyzer):
     return om.size(analyzer['datetime'])
-
+#FUNCION REQUERIMIENTO 4 
 def countAvistabyDate(analyzer,fechaInicial,fechaFinal) : 
     valores = om.values(analyzer['datetime'],fechaInicial,fechaFinal)
     avista = lt.newList('ARRAY_LIST')
@@ -137,6 +175,8 @@ def countAvistabyDate(analyzer,fechaInicial,fechaFinal) :
         i += 1 
     mer.sort(avista,compareDateTime)
     return avista
+
+
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -154,9 +194,9 @@ def compareDates(date1, date2):
         return -1
 
 def compareDurations(duration1,duration2): 
-    if (duration1 == duration2) : 
+    if (float(duration1) == float(duration2)) : 
         return 0 
-    elif (duration1 > duration2) : 
+    elif (float(duration1) > float(duration2)) : 
         return 1
     else: 
         return -1 
