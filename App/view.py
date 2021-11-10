@@ -49,12 +49,6 @@ def printMenu():
 
 catalog = None
 
-def printDatos(avista):
-    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
-    print(avista)
-    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
-
-
 def printAvista(avista): 
     print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
     datetimes = avista['datetime']
@@ -83,20 +77,12 @@ while True:
         datos = controller.loadData(cont)
         size = controller.avistaSize(cont)
         print('Avistamientos cargados: ' + str(size))
-        i = 1
-        while i <= 5: 
-            element = ht.get(datos['avista'],i)
-            printDatos(element)
-            i += 1 
-        i = size  
-        while i > size - 5: 
-            element = ht.get(datos['avista'],i)
-            printDatos(element)
-            i -= 1
 
     elif int(inputs[0]) == 3:
         print('Altura del árbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el árbol: ' + str(controller.indexSize(cont)))
+        
+
     elif int(inputs[0]) == 6 : 
         fechaInicial = input("Ingrese la fecha inicial (AAAA-MM-DD): ")
         fechaFinal = input("Ingrese la fecha final (AAAA-MM-DD): ")
