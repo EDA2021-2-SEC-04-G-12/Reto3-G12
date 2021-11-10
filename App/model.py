@@ -66,6 +66,7 @@ def newAnalyzer():
 def addAvista(analyzer, avista):
     lt.addLast(analyzer['avista'], avista)
     updateDateIndex(analyzer['datetime'], avista)
+    upCityIndex(analyzer['city'], avista)
     return analyzer
 
 
@@ -95,6 +96,32 @@ def addDateIndex(datentry, avista):
         entry = me.getValue(avistaentry)
         lt.addLast(entry['lstcities'], avista)
     return datentry
+
+def upCityIndex(map, avista):
+    city = avista['city']
+    entry = om.get(map, city)
+    if entry is None:
+        cityentry = newDataEntry(avista)
+        om.put(map, city, cityentry)
+    else:
+        cityentry = me.getValue(entry)
+    addCityIndex(cityentry, avista)
+    return map
+
+
+def addCityIndex(cityentry, avista):
+    lst = cityentry['lstavista']
+    lt.addLast(lst, avista)
+    avistaIndex = cityentry['avistaIndex']
+    avistaentry = m.get(avistaIndex, avista['city'])
+    if (avistaentry is None):
+        entry = newCityEntry(avista['city'], avista)
+        lt.addLast(entry['lstcities'], avista)
+        m.put(avistaIndex, avista['city'], entry)
+    else:
+        entry = me.getValue(avistaentry)
+        lt.addLast(entry['lstcities'], avista)
+    return cityentry
 
 
 # Funciones para creacion de datos
