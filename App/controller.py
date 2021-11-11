@@ -65,5 +65,8 @@ def countAvista(analyzer,fechaInicial,fechaFinal) :
     fecha_2 = datetime.date.fromisoformat(fechaFinal)
     return model.countAvistabyDate(analyzer,fecha_1,fecha_2)
 
+def countAvistabyZone(analyzer,limitesLong,limitesLat) : 
+    return model.countAvistabyZone(analyzer,limitesLong,limitesLat)
+
 def countAvistabyCity(analyzer, city):
     return model.countAvistabyCity(analyzer, city)

@@ -62,6 +62,23 @@ def printAvista(avista):
     duration = avista['duration (seconds)']
     print(f"| {datetimes:24}| {strdate:15}| {city:22}| {state:11}| {country:14}| {shape:8}| {duration:19}| ")
     print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+
+def printAvistaZone(avista):
+    datetimes = avista['datetime']
+    dates = datetime.datetime.strptime(datetimes,'%Y-%m-%d %H:%M:%S')
+    date = dates.date()
+    strdate = datetime.datetime.strftime(date, "%Y-%m-%d")
+    city = avista['city']
+    state = avista['state']
+    country = avista['country']
+    shape = avista['shape']
+    duration = avista['duration (seconds)']
+    longitude = avista['longitude']
+    latitude = avista['latitude']
+    print(f"| {datetimes:24}| {strdate:15}| {city:22}| {state:11}| {country:14}| {shape:8}| {duration:19}| {longitude:10}| {latitude:10}| ")
+    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*10+'+'+"-"*10+"-"+'+')
+
+
 """
 Menu principal
 """
@@ -81,22 +98,23 @@ while True:
     elif int(inputs[0]) == 3:
         city = input("Ingresa la ciudad: ")
         datos = controller.countAvistabyCity(cont, city)
-        size = lt.size(datos)
+        size = lt.size(datos[1])
         print("El total de avistamientos en la ciudad seleccionada fue: " + str(size))
         print('Altura del árbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el árbol: ' + str(controller.indexSize(cont)))
+        print('El total de ciudades es: ' + str(datos[0]))
 
         print("Los primeros tres elementos en el rango son: \n")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
         print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
         i = 1 
         while i <=3 : 
-            element = lt.getElement(datos,i)
+            element = lt.getElement(datos[1],i)
             printAvista(element)
             i+=1 
         i = size  
         while i > size-3 : 
-            element = lt.getElement(datos,i)
+            element = lt.getElement(datos[1],i)
             printAvista(element)
             i-=1
 
@@ -110,7 +128,7 @@ while True:
        
         print("Los primeros tres elementos en el rango son: \n")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
-        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) | longitude | latitude |" )
         i = 1 
         while i <=3 : 
             element = lt.getElement(prueba,i)
@@ -121,16 +139,26 @@ while True:
             element = lt.getElement(prueba,i)
             printAvista(element)
             i-=1
-
-        
-
-
-            
-
-        
-
-
-        
+    
+    elif int(inputs[0]) == 7 :
+        limitesLongitude = input("Ingrese el rango de longitudes a consultar (min,max) : ")
+        limitesLatitude = input("Ingrese el rango de latitudes a consultar (min,max) : ") 
+        datos = controller.countAvistabyZone(cont,limitesLongitude,limitesLatitude)
+        size = lt.size(datos)
+        print(f"El total de avistamientos dentro del area es: {size}")
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) | longitude | latitude |" )
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        i = 1 
+        while i <= 5 : 
+            element = lt.getElement(datos,i)
+            printAvistaZone(element)
+            i += 1 
+        i = size  
+        while i > size-5 : 
+            element = lt.getElement(datos,i)
+            printAvistaZone(element)
+            i -= 1       
 
     else:
         sys.exit(0)

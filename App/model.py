@@ -58,6 +58,11 @@ def newAnalyzer():
                                       comparefunction=compareDates)
     analyzer['duration (seconds)'] = om.newMap(omaptype='RBT',
                                         comparefunction= compareDurations)
+    analyzer['longitude'] = om.newMap(omaptype='RBT',
+                                        comparefunction= compareLongitudes)
+    
+    
+            
     
     return analyzer
 
@@ -68,6 +73,7 @@ def addAvista(analyzer, avista):
     updateDateIndex(analyzer['datetime'], avista)
     updateDurationIndex(analyzer['duration (seconds)'],avista)
     upCityIndex(analyzer['city'], avista)
+    updateLongitudeIndex(analyzer['longitude'],avista)
     return analyzer
 
 
@@ -83,6 +89,17 @@ def updateDateIndex(map, avista):
     addDateIndex(datentry, avista)
     return map
 
+def updateLongitudeIndex(map,avista):
+    longitude = round(float(avista['longitude']),2)
+    entry = om.get(map,longitude)
+    if entry is None : 
+        longitudeEntry = newLongitudeEntry(avista)
+        om.put(map,longitude,longitudeEntry)
+    else : 
+        longitudeEntry = me.getValue(entry)
+    addLongitudeIndex(longitudeEntry,avista)
+    return map 
+
 def updateDurationIndex(map,avista):
     duration = avista['duration (seconds)']
     entry = om.get(map,duration)
@@ -97,30 +114,15 @@ def updateDurationIndex(map,avista):
 def addDateIndex(datentry, avista):
     lst = datentry['lstavista']
     lt.addLast(lst, avista)
-    avistaIndex = datentry['avistaIndex']
-    avistaentry = m.get(avistaIndex, avista['city'])
-    if (avistaentry is None):
-        entry = newCityEntry(avista['city'], avista)
-        lt.addLast(entry['lstcities'], avista)
-        m.put(avistaIndex, avista['city'], entry)
-    else:
-        entry = me.getValue(avistaentry)
-        lt.addLast(entry['lstcities'], avista)
-    return datentry
 
 def addDurationIndex(durationEntry,avista) : 
     lst = durationEntry['lstAvista']
     lt.addLast(lst,avista)
-    avistaDuration = durationEntry['avistaIndex']
-    avistaentry = m.get(avistaDuration, avista['duration (seconds)'])
-    if (avistaentry is None) : 
-        entry = newDurationEntry_2(avista)
-        lt.addLast(entry['lstAvista'],avista)
-        m.put(avistaDuration,avista['duration (seconds)'],entry)
-    else : 
-        entry = me.getValue(avistaentry)
-        lt.addLast(entry['lstAvista'],avista)
-    return durationEntry
+
+def addLongitudeIndex(longitudeEntry,avista) :
+    lst = longitudeEntry['lstAvista']
+    lt.addLast(lst,avista)
+
 def upCityIndex(map, avista):
     city = avista['city']
     entry = om.get(map, city)
@@ -136,16 +138,7 @@ def upCityIndex(map, avista):
 def addCityIndex(cityentry, avista):
     lst = cityentry['lstavista']
     lt.addLast(lst, avista)
-    avistaIndex = cityentry['avistaIndex']
-    avistaentry = m.get(avistaIndex, avista['city'])
-    if (avistaentry is None):
-        entry = newCityEntry(avista['city'], avista)
-        lt.addLast(entry['lstcities'], avista)
-        m.put(avistaIndex, avista['city'], entry)
-    else:
-        entry = me.getValue(avistaentry)
-        lt.addLast(entry['lstcities'], avista)
-    return cityentry
+
 
 
 # Funciones para creacion de datos
@@ -166,19 +159,23 @@ def newDurationEntry(avista) :
     entry['lstAvista'] = lt.newList('SINGLE_LINKED',compareDurations)
     return entry 
 
+def newLongitudeEntry(avista) : 
+    entry = {'lstAvista': None}
+    entry['lstAvista'] = lt.newList('SINGLE_LINKED',compareDurations)
+    return entry 
+
 def newDurationEntry_2(duration,avista) : 
     entry = {'avistaDuration': None, 'lstAvista':None}
     entry['avistaDuration'] = duration
     entry['lstavista'] = lt.newList('SINGLELINKED',compareDurations)
     return entry  
 
-def newCityEntry(city, avista):
+def newCityEntry():
     """
     Crea una entrada en el indice por tipo de crimen, es decir en
     la tabla de hash, que se encuentra en cada nodo del arbol.
     """
-    ofentry = {'city': None, 'lstcities': None}
-    ofentry['city'] = city
+    ofentry = {'lstcities': None}
     ofentry['lstcities'] = lt.newList('SINGLELINKED', compareCities)
     return ofentry
 
@@ -193,19 +190,19 @@ def indexHeight(analyzer):
 
 def indexSize(analyzer):
     return om.size(analyzer['datetime'])
-#FUNCION REQUERIMIENTO 4 
+
+#FUNCION REQUERIMIENTO 1 
+
 
 def countAvistabyCity(analyzer, city):
-    valores = om.get(analyzer['city'],city)
-    avista = lt.newList('ARRAY_LIST')
-    i = 1
-    while i <= lt.size(valores) : 
-        value = lt.getElement(valores,i)
-        for element in lt.iterator(value['lstavista']) : 
-            lt.addLast(avista,element)
-        i += 1 
-    mer.sort(avista,compareCities)
-    return avista
+    cities = om.size(analyzer['city'])
+    valor = om.get(analyzer['city'],city)
+    avistaCity = me.getValue(valor)['lstavista']
+    mer.sort(avistaCity,compareDateTime)
+    return cities,avistaCity
+
+
+#FUNCION REQUERIMIENTO 4 
 
 
 def countAvistabyDate(analyzer,fechaInicial,fechaFinal) : 
@@ -219,6 +216,30 @@ def countAvistabyDate(analyzer,fechaInicial,fechaFinal) :
         i += 1 
     mer.sort(avista,compareDateTime)
     return avista
+
+#FUNCION REQUERIMIENTO 5 
+
+def countAvistabyZone(analyzer,limitesLong,limitesLat) : 
+    listLimitesLong = limitesLong.split(',')
+    listLimitesLat = limitesLat.split(',')
+    listAvistaLat = om.values(analyzer['longitude'],float(listLimitesLong[0]),float(listLimitesLong[1])) 
+    avistaLat = lt.newList('ARRAY_LIST')
+    for lista in lt.iterator(listAvistaLat) : 
+        for element in lt.iterator(lista['lstAvista']) :
+            lt.addLast(avistaLat,element)
+    mer.sort(avistaLat,compareLatitude)
+    avista = lt.newList('ARRAY_LIST')
+    for element in lt.iterator(avistaLat) : 
+        if round(float(element['latitude']),2) >= float(listLimitesLat[0]) and round(float(element['latitude']),2) < float(listLimitesLat[1]) : 
+            lt.addLast(avista,element) 
+        elif element['latitude'] == listLimitesLat[1] : 
+            lt.addLast(avista,element)
+            break
+    return avista 
+
+
+
+
 
 
 
@@ -246,12 +267,33 @@ def compareDurations(duration1,duration2):
         return -1 
 
 def compareCities(city1, city2):
-    city = me.getKey(city2)
-    if (city1 == city):
+    if (city1 == city2):
         return 0
-    elif (city1 > city):
+    elif (city1 > city2):
         return 1
     else:
         return -1
+def compareCity(elem1,elem2): 
+    city1 = elem1['city']
+    city2 = elem2['city']
+    return city1 < city2
+
+def compareLongitudes(longitude1, longitude2):
+    if (longitude1 == longitude2):
+        return 0
+    elif (longitude1 > longitude2):
+        return 1
+    else:
+        return -1
+
+def compareLongitude(elem1,elem2) : 
+    long1 = elem1['longitude']
+    long2 = elem2['longitude']
+    return long1 < long2
+
+def compareLatitude(elem1,elem2) :
+    lat1 = elem1['latitude']
+    lat2 = elem2['latitude']
+    return lat1 < lat2
 
 # Funciones de ordenamiento
