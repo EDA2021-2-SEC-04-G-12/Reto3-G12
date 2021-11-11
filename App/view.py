@@ -118,6 +118,26 @@ while True:
             printAvista(element)
             i-=1
 
+    elif int(inputs[0]) == 5 : 
+        horaInicial = input("Ingrese la hora inicial (HH:MM): ")
+        horaFinal = input("Ingrese la hora final (HH:MM): ")
+        datos = controller.countAvistabyHour(cont,horaInicial,horaFinal)
+        size = lt.size(prueba)
+        print(f"El total de avistamientos entre las fechas seleccionadas fue: {size}")
+       
+        print("Los primeros y últimos tres elementos en el rango son: \n")
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
+        i = 1 
+        while i <=3 : 
+            element = lt.getElement(datos,i)
+            printAvista(element)
+            i+=1 
+        i = size  
+        while i > size-3 : 
+            element = lt.getElement(datos,i)
+            printAvista(element)
+            i-=1
 
     elif int(inputs[0]) == 6 : 
         fechaInicial = input("Ingrese la fecha inicial (AAAA-MM-DD): ")

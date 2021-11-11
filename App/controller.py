@@ -60,6 +60,11 @@ def indexHeight(analyzer):
 def indexSize(analyzer):
     return model.indexSize(analyzer)
 
+def countAvistabyHour(analyzer,hourInicial,hourFinal):
+    hour1 = datetime.time.isoformat(hourInicial)
+    hour2 = datetime.time.isoformat(hourFinal)
+    return model.countAvistabyHour(analyzer,hour1,hour2)
+
 def countAvista(analyzer,fechaInicial,fechaFinal) :
     fecha_1 = datetime.date.fromisoformat(fechaInicial)
     fecha_2 = datetime.date.fromisoformat(fechaFinal)

@@ -193,7 +193,6 @@ def indexSize(analyzer):
 
 #FUNCION REQUERIMIENTO 1 
 
-
 def countAvistabyCity(analyzer, city):
     cities = om.size(analyzer['city'])
     valor = om.get(analyzer['city'],city)
@@ -202,8 +201,24 @@ def countAvistabyCity(analyzer, city):
     return cities,avistaCity
 
 
-#FUNCION REQUERIMIENTO 4 
 
+#FUNCIÓN REQUERIMIENTO 3
+
+def countAvistabyHour(analyzer,horaInicial,horaFinal) : 
+    valores = om.values(analyzer['datetime'],horaInicial,horaFinal)
+    avista = lt.newList('ARRAY_LIST')
+    i = 1
+    while i <= lt.size(valores): 
+        value = lt.getElement(valores,i)
+        for element in lt.iterator(value['lstavista']) : 
+            lt.addLast(avista,element)
+        i += 1 
+    mer.sort(avista,compareHourTime)
+    return avista
+
+
+
+#FUNCION REQUERIMIENTO 4 
 
 def countAvistabyDate(analyzer,fechaInicial,fechaFinal) : 
     valores = om.values(analyzer['datetime'],fechaInicial,fechaFinal)
@@ -216,6 +231,8 @@ def countAvistabyDate(analyzer,fechaInicial,fechaFinal) :
         i += 1 
     mer.sort(avista,compareDateTime)
     return avista
+
+
 
 #FUNCION REQUERIMIENTO 5 
 
@@ -240,15 +257,16 @@ def countAvistabyZone(analyzer,limitesLong,limitesLat) :
 
 
 
-
-
-
-
 # Funciones utilizadas para comparar elementos dentro de una lista
 def compareDateTime (elem1,elem2) : 
     date_1 =  datetime.datetime.strptime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
     date_2 =  datetime.datetime.strptime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
     return date_1 < date_2
+
+def compareHourTime(elem1,elem2):
+    hour1 = datetime.time.strftime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
+    hour2 = datetime.time.strftime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
+    return hour1 < hour2
 
 def compareDates(date1, date2):
     if (date1 == date2):
