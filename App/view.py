@@ -75,8 +75,8 @@ def printAvistaZone(avista):
     duration = avista['duration (seconds)']
     longitude = avista['longitude']
     latitude = avista['latitude']
-    print(f"| {datetimes:24}| {strdate:15}| {city:22}| {state:11}| {country:14}| {shape:8}| {duration:19}| {longitude:10}| {latitude:10}| ")
-    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*10+'+'+"-"*10+"-"+'+')
+    print(f"| {datetimes:24}| {strdate:15}| {city:22}| {state:11}| {country:14}| {shape:8}| {duration:19}| {longitude:16}| {latitude:14}| ")
+    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*17+'+'+'-'*15+'+')
 
 
 """
@@ -99,12 +99,12 @@ while True:
         city = input("Ingresa la ciudad: ")
         datos = controller.countAvistabyCity(cont, city)
         size = lt.size(datos[1])
-        print("El total de avistamientos en la ciudad seleccionada fue: " + str(size))
         print('Altura del árbol: ' + str(controller.indexHeight(cont)))
         print('Elementos en el árbol: ' + str(controller.indexSize(cont)))
         print('El total de ciudades es: ' + str(datos[0]))
+        print("El total de avistamientos en la ciudad seleccionada fue: " + str(size))
 
-        print("Los primeros tres elementos en el rango son: \n")
+        print("Los primeros y últimos tres elementos en el rango son: \n")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
         print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
         i = 1 
@@ -128,7 +128,7 @@ while True:
        
         print("Los primeros tres elementos en el rango son: \n")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
-        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) | longitude | latitude |" )
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
         i = 1 
         while i <=3 : 
             element = lt.getElement(prueba,i)
@@ -146,9 +146,9 @@ while True:
         datos = controller.countAvistabyZone(cont,limitesLongitude,limitesLatitude)
         size = lt.size(datos)
         print(f"El total de avistamientos dentro del area es: {size}")
-        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
-        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) | longitude | latitude |" )
-        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*17+'+'+'-'*15+'+')
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) | longitude\t | latitude\t |" )
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*17+'+'+'-'*15+'+')
         i = 1 
         while i <= 5 : 
             element = lt.getElement(datos,i)
