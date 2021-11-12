@@ -54,6 +54,8 @@ def newAnalyzer():
     analyzer['avista'] = lt.newList('SINGLE_LINKED')
     analyzer['city'] = om.newMap(omaptype='RBT',
                                 comparefunction=compareCities)
+    analyzer['hours'] = om.newMap(omaptype='RBT',
+                                comparefunction=compareHours)                          
     analyzer['datetime'] = om.newMap(omaptype='RBT',
                                 comparefunction=compareDates)
     analyzer['duration (seconds)'] = om.newMap(omaptype='RBT',
@@ -71,10 +73,23 @@ def newAnalyzer():
 def addAvista(analyzer, avista):
     lt.addLast(analyzer['avista'], avista)
     updateDateIndex(analyzer['datetime'], avista)
+    updateTimeIndex(analyzer['hours'],avista)
     updateDurationIndex(analyzer['duration (seconds)'],avista)
     upCityIndex(analyzer['city'], avista)
     updateLongitudeIndex(analyzer['longitude'],avista)
     return analyzer
+
+def updateTimeIndex(map, avista):
+    time = avista['datetime']
+    avistaTime = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+    entry = om.get(map, avistaTime.time())
+    if entry is None:
+        timeEntry = newTimeEntry()
+        om.put(map, avistaTime.time(), timeEntry)
+    else:
+        timeEntry = me.getValue(entry)
+    addTimeIndex(timeEntry, avista)
+    
 
 def updateDateIndex(map, avista):
     date = avista['datetime']
@@ -110,6 +125,10 @@ def updateDurationIndex(map,avista):
     addDurationIndex(durationEntry,avista)
     return map 
 
+def addTimeIndex(timeEntry, avista):
+    lst = timeEntry['lstAvista']
+    lt.addLast(lst, avista)
+
 def addDateIndex(datentry, avista):
     lst = datentry['lstavista']
     lt.addLast(lst, avista)
@@ -141,6 +160,11 @@ def addCityIndex(cityentry, avista):
 
 
 # Funciones para creacion de datos
+
+def newTimeEntry() : 
+    entry = {'lstAvista': None}
+    entry['lstAvista'] = lt.newList('SINGLE_LINKED',compareHours)
+    return entry 
 
 def newDataEntry(avista):
     entry = {'avistaIndex': None, 'lstavista': None}
@@ -205,10 +229,11 @@ def countAvistabyHour(analyzer,horaInicial,horaFinal) :
     i = 1
     while i <= lt.size(valores): 
         value = lt.getElement(valores,i)
-        for element in lt.iterator(value['lstavista']) : 
+        for element in lt.iterator(value['lstAvista']) : 
             lt.addLast(avista,element)
         i += 1 
     mer.sort(avista,compareDateTime)
+    mer.sort(avista,compareHourTime)
     return avista
 
 
@@ -257,6 +282,19 @@ def compareDateTime (elem1,elem2) :
     date_1 =  datetime.datetime.strptime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
     date_2 =  datetime.datetime.strptime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
     return date_1 < date_2
+
+def compareHourTime(elem1,elem2):
+    hour1 = datetime.datetime.strptime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
+    hour2 = datetime.datetime.strptime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
+    return (hour1.time()) < (hour2.time())
+
+def compareHours(hour1, hour2):
+    if (hour1 == hour2):
+        return 0
+    elif (hour1 > hour2):
+        return 1
+    else:
+        return -1
 
 def compareDates(date1, date2):
     if (date1 == date2):
