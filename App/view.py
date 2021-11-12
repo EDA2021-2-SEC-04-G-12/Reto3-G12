@@ -27,6 +27,7 @@ from DISClib.ADT import list as lt
 from DISClib.DataStructures import mapstructure as ht
 assert cf
 import datetime 
+import folium
 
 
 """
@@ -45,7 +46,8 @@ def printMenu():
     print("5- Contar avistamientos por hora/minutos del día")
     print("6- Contar los avistamientos en un rango de fechas")
     print("7- Contar los avistamientos de una zona geográfica")
-    print("8- Salir del programa")
+    print("8- Visualizar los avistamientos de una zona geográfica")
+    print("9- Salir del programa")
 
 catalog = None
 
@@ -179,6 +181,31 @@ while True:
             element = lt.getElement(datos,i)
             printAvistaZone(element)
             i -= 1       
+
+    elif int(inputs[0]) == 8:
+        limitesLongitude = input("Ingrese el rango de longitudes a consultar (min,max) : ")
+        limitesLatitude = input("Ingrese el rango de latitudes a consultar (min,max) : ") 
+        datos = controller.countAvistabyZone(cont,limitesLongitude,limitesLatitude)
+        size = lt.size(datos)
+        print(f"El total de avistamientos dentro del area es: {size}")
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*17+'+'+'-'*15+'+')
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) | longitude\t | latitude\t |" )
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*17+'+'+'-'*15+'+')
+        i = 1 
+        while i <= 5 : 
+            element = lt.getElement(datos,i)
+            printAvistaZone(element)
+            mapa = folium.Map(location=[datos['latitude'],datos['longitude']],zoom_start=12)
+            mapa.save()
+            i += 1 
+        i = size  
+        while i > size-5 : 
+            element = lt.getElement(datos,i)
+            printAvistaZone(element)
+            mapa = folium.Map(location=[datos['latitude'],datos['longitude']],zoom_start=12)
+            mapa.save()
+            i -= 1      
+       
 
     else:
         sys.exit(0)
