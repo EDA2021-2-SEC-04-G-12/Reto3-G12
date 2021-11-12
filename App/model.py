@@ -55,7 +55,7 @@ def newAnalyzer():
     analyzer['city'] = om.newMap(omaptype='RBT',
                                 comparefunction=compareCities)
     analyzer['hours'] = om.newMap(omaptype='RBT',
-                                comparefunction=compareHours)                          
+                                comparefunction=compareHours)
     analyzer['datetime'] = om.newMap(omaptype='RBT',
                                 comparefunction=compareDates)
     analyzer['duration (seconds)'] = om.newMap(omaptype='RBT',
@@ -72,8 +72,8 @@ def newAnalyzer():
 
 def addAvista(analyzer, avista):
     lt.addLast(analyzer['avista'], avista)
+    updateTimeIndex(analyzer['hours'], avista)
     updateDateIndex(analyzer['datetime'], avista)
-    updateTimeIndex(analyzer['hours'],avista)
     updateDurationIndex(analyzer['duration (seconds)'],avista)
     upCityIndex(analyzer['city'], avista)
     updateLongitudeIndex(analyzer['longitude'],avista)
@@ -224,7 +224,7 @@ def countAvistabyCity(analyzer, city):
 #FUNCIÓN REQUERIMIENTO 3
 
 def countAvistabyHour(analyzer,horaInicial,horaFinal) : 
-    valores = om.values(analyzer['datetime'],horaInicial,horaFinal)
+    valores = om.values(analyzer['hours'],horaInicial,horaFinal)
     avista = lt.newList('ARRAY_LIST')
     i = 1
     while i <= lt.size(valores): 
