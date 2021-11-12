@@ -196,7 +196,7 @@ while True:
             element = lt.getElement(datos,i)
             printAvistaZone(element)
             mapa = folium.Map(location=[float(element['latitude']),float(element['longitude'])],zoom_start=12)
-            mapa.save('/Users/felixsantiagocamposperilla/Desktop/Reto3-G12/Docs')
+            mapa.save('/Users/felixsantiagocamposperilla/Downloads')
             i += 1 
         i = size  
         while i > size-5 : 
