@@ -283,8 +283,8 @@ def compareDateTime (elem1,elem2) :
     return date_1 < date_2
 
 def compareHourTime(elem1,elem2):
-    hour1 = datetime.time.strftime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
-    hour2 = datetime.time.strftime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
+    hour1 = datetime.datetime.strptime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
+    hour2 = datetime.datetime.strptime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
     return hour1 < hour2
 
 def compareHours(hour1, hour2):
