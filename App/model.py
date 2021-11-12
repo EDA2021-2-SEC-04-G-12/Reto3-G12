@@ -285,7 +285,7 @@ def compareDateTime (elem1,elem2) :
 def compareHourTime(elem1,elem2):
     hour1 = datetime.datetime.strptime(elem1['datetime'],'%Y-%m-%d %H:%M:%S')
     hour2 = datetime.datetime.strptime(elem2['datetime'],'%Y-%m-%d %H:%M:%S')
-    return hour1 < hour2
+    return (hour1.time()) < (hour2.time())
 
 def compareHours(hour1, hour2):
     if (hour1 == hour2):
