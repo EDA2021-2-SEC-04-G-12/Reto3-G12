@@ -80,16 +80,16 @@ def addAvista(analyzer, avista):
     return analyzer
 
 def updateTimeIndex(map, avista):
-    time = avista['hours']
-    avistaTime = datetime.time.strftime(time, '%Y-%m-%d %H:%M:%S')
+    time = avista['datetime']
+    avistaTime = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M')
     entry = om.get(map, avistaTime.time())
     if entry is None:
-        timeEntry = newTimeEntry(avista)
+        timeEntry = newTimeEntry()
         om.put(map, avistaTime.time(), timeEntry)
     else:
-        datentry = me.getValue(entry)
-    addTimeIndex(datentry, avista)
-    return map
+        timeEntry = me.getValue(entry)
+    addTimeIndex(timeEntry, avista)
+    
 
 def updateDateIndex(map, avista):
     date = avista['datetime']
@@ -161,11 +161,8 @@ def addCityIndex(cityentry, avista):
 
 # Funciones para creacion de datos
 
-def newTimeEntry(avista) : 
-    entry = {'avistaIndex': None, 'lstAvista': None}
-    entry['avistaIndex'] = m.newMap(numelements=30,
-                                        maptype='PROBING',
-                                        comparefunction=compareHours)
+def newTimeEntry() : 
+    entry = {'lstAvista': None}
     entry['lstAvista'] = lt.newList('SINGLE_LINKED',compareHours)
     return entry 
 
