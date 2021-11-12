@@ -232,6 +232,7 @@ def countAvistabyHour(analyzer,horaInicial,horaFinal) :
         for element in lt.iterator(value['lstAvista']) : 
             lt.addLast(avista,element)
         i += 1 
+    mer.sort(avista,compareDateTime)
     mer.sort(avista,compareHourTime)
     return avista
 
