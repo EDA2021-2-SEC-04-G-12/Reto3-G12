@@ -81,7 +81,7 @@ def addAvista(analyzer, avista):
 
 def updateTimeIndex(map, avista):
     time = avista['datetime']
-    avistaTime = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M')
+    avistaTime = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
     entry = om.get(map, avistaTime.time())
     if entry is None:
         timeEntry = newTimeEntry()
