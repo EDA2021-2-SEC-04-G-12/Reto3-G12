@@ -126,7 +126,7 @@ def updateDurationIndex(map,avista):
     return map 
 
 def addTimeIndex(timeEntry, avista):
-    lst = timeEntry['lstavista']
+    lst = timeEntry['lstAvista']
     lt.addLast(lst, avista)
 
 def addDateIndex(datentry, avista):
