@@ -197,7 +197,7 @@ while True:
             printAvistaZone(element)
             map = folium.Map(world_copy_jump=False, no_wrap=False)
             folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<i>Mt. Hood Meadows</i>", tooltip = str(element['datetime']) + 
-            str(element['city']) + str(element['state']) + str(element['country']) + str(element['shape']) + str(element['duration (seconds'])).add_to(map)
+            str(element['city']) + str(element['state']) + str(element['country']) + str(element['shape']) + str(element['duration (seconds)'])).add_to(map)
             i += 1 
         i = size  
         while i > size-5 : 
@@ -205,7 +205,7 @@ while True:
             printAvistaZone(element)
             map = folium.Map(world_copy_jump=False, no_wrap=False)
             folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<b>Timberline Lodge</b>", tooltip = str(element['datetime']) + 
-            str(element['city']) + str(element['state']) + str(element['country']) + str(element['shape']) + str(element['duration (seconds'])).add_to(map)
+            str(element['city']) + str(element['state']) + str(element['country']) + str(element['shape']) + str(element['duration (seconds)'])).add_to(map)
             i -= 1      
         map.save('index.html')
 

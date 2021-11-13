@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_eb98c3b95e9a427687e3e0c0b1517305 {
+                #map_2993b14f27c64ac0b5f82ed4339fca20 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,13 +35,13 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_eb98c3b95e9a427687e3e0c0b1517305" ></div>
+            <div class="folium-map" id="map_2993b14f27c64ac0b5f82ed4339fca20" ></div>
         
 </body>
 <script>    
     
-            var map_eb98c3b95e9a427687e3e0c0b1517305 = L.map(
-                "map_eb98c3b95e9a427687e3e0c0b1517305",
+            var map_2993b14f27c64ac0b5f82ed4339fca20 = L.map(
+                "map_2993b14f27c64ac0b5f82ed4339fca20",
                 {
                     center: [0, 0],
                     crs: L.CRS.EPSG3857,
@@ -57,28 +57,36 @@
 
         
     
-            var tile_layer_3e9090dc24954aa78252cc45c96fbb9c = L.tileLayer(
+            var tile_layer_6c6d97ca6ba84fd0a5965d9405c464be = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_eb98c3b95e9a427687e3e0c0b1517305);
+            ).addTo(map_2993b14f27c64ac0b5f82ed4339fca20);
         
     
-            var marker_60c259d7648f41b29f6e128500612f61 = L.marker(
+            var marker_a165efc2c4244463b609a7bd2abcb6c2 = L.marker(
                 [32.77, -108.2797222],
                 {}
-            ).addTo(map_eb98c3b95e9a427687e3e0c0b1517305);
+            ).addTo(map_2993b14f27c64ac0b5f82ed4339fca20);
         
     
-        var popup_f7d0663028444b8380ca4300a0675d6c = L.popup({"maxWidth": "100%"});
+        var popup_bd159cb8cc784bb78de95bafe5bef897 = L.popup({"maxWidth": "100%"});
 
         
-            var html_bd7f41fa9110483e80c08a729766d7d5 = $(`<div id="html_bd7f41fa9110483e80c08a729766d7d5" style="width: 100.0%; height: 100.0%;"><b>Timberline Lodge</b></div>`)[0];
-            popup_f7d0663028444b8380ca4300a0675d6c.setContent(html_bd7f41fa9110483e80c08a729766d7d5);
+            var html_5770c87679d74fd78f0d9b587536f5c6 = $(`<div id="html_5770c87679d74fd78f0d9b587536f5c6" style="width: 100.0%; height: 100.0%;"><b>Timberline Lodge</b></div>`)[0];
+            popup_bd159cb8cc784bb78de95bafe5bef897.setContent(html_5770c87679d74fd78f0d9b587536f5c6);
         
 
-        marker_60c259d7648f41b29f6e128500612f61.bindPopup(popup_f7d0663028444b8380ca4300a0675d6c)
+        marker_a165efc2c4244463b609a7bd2abcb6c2.bindPopup(popup_bd159cb8cc784bb78de95bafe5bef897)
         ;
 
         
     
+    
+            marker_a165efc2c4244463b609a7bd2abcb6c2.bindTooltip(
+                `<div>
+                     2004-08-23 21:00:00silver citynmuslight1800.0
+                 </div>`,
+                {"sticky": true}
+            );
+        
 </script>
