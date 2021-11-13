@@ -82,9 +82,9 @@ def printAvistaZone(avista):
 
 def visualizacionFolium(avista):
     map = folium.Map(world_copy_jump=False, no_wrap=False)
-    folium.Marker([float(element['latitude']),float(element['longitude'])], tooltip = 'Datetime: ' + str(element['datetime']) + 
-    ' City: ' + str(element['city']) + ' State: ' + str(element['state']) + ' Country: ' + str(element['country']) + ' Shape: ' + str(element['shape']) + 
-    ' Duration (seconds): ' + str(element['duration (seconds)'])).add_to(map)
+    folium.Marker([float(avista['latitude']),float(avista['longitude'])], tooltip = 'Datetime: ' + str(avista['datetime']) + 
+    ' City: ' + str(avista['city']) + ' State: ' + str(avista['state']) + ' Country: ' + str(avista['country']) + ' Shape: ' + str(avista['shape']) + 
+    ' Duration (seconds): ' + str(avista['duration (seconds)'])).add_to(map)
     map.save('index.html')
 
 """
