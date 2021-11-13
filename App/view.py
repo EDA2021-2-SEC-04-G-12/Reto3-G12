@@ -80,6 +80,12 @@ def printAvistaZone(avista):
     print(f"| {datetimes:24}| {strdate:15}| {city:22}| {state:11}| {country:14}| {shape:8}| {duration:19}| {longitude:16}| {latitude:14}| ")
     print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+'+'-'*17+'+'+'-'*15+'+')
 
+def visualizacionFolium(avista):
+    map = folium.Map(world_copy_jump=False, no_wrap=False)
+    folium.Marker([float(element['latitude']),float(element['longitude'])], tooltip = 'Datetime: ' + str(element['datetime']) + 
+    ' City: ' + str(element['city']) + ' State: ' + str(element['state']) + ' Country: ' + str(element['country']) + ' Shape: ' + str(element['shape']) + 
+    ' Duration (seconds): ' + str(element['duration (seconds)'])).add_to(map)
+    map.save('index.html')
 
 """
 Menu principal
@@ -194,22 +200,12 @@ while True:
         i = 1 
         while i <= 5 : 
             element = lt.getElement(datos,i)
-            map = folium.Map(world_copy_jump=False, no_wrap=False)
-            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<i>Mt. Hood Meadows</i>", tooltip = 'DATETIME: ' + str(element['datetime']) + 
-            ' CITY: ' + str(element['city']) + ' STATE: ' + str(element['state']) + ' COUNTRY: ' + str(element['country']) + ' SHAPE: ' + str(element['shape']) + 
-            ' DURATION (SECONDS): ' + str(element['duration (seconds)'])).add_to(map)
             printAvistaZone(element)
             i += 1 
         i = size  
         while i > size-5 : 
             element = lt.getElement(datos,i)
-            map = folium.Map(world_copy_jump=False, no_wrap=False)
-            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<b>Timberline Lodge</b>", tooltip = 'DATETIME: ' + str(element['datetime']) + 
-            ' CITY: ' + str(element['city']) + ' STATE: ' + str(element['state']) + ' COUNTRY: ' + str(element['country']) + ' SHAPE: ' + str(element['shape']) + 
-            ' DURATION (SECONDS): ' + str(element['duration (seconds)'])).add_to(map)
-            printAvistaZone(element)
-            i -= 1      
-        map.save('index.html')
+            i -= 1
 
     else:
         sys.exit(0)
