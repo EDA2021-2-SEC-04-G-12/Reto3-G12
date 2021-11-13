@@ -195,15 +195,15 @@ while True:
         while i <= 5 : 
             element = lt.getElement(datos,i)
             printAvistaZone(element)
-            mapa = folium.Map(location=[float(element['latitude']),float(element['longitude'])],zoom_start=12)
-            mapa.save('/Users/felixsantiagocamposperilla/Downloads')
+            map = folium.Map(world_copy_jump=False, no_wrap=False)
+            folium.Marker(location=[float(element['latitude']),float(element['longitude'])]).add_to(map)
             i += 1 
         i = size  
         while i > size-5 : 
             element = lt.getElement(datos,i)
             printAvistaZone(element)
-            mapa = folium.Map(location=[datos['latitude'],datos['longitude']],zoom_start=12)
-            mapa.save()
+            map = folium.Map(world_copy_jump=False, no_wrap=False)
+            folium.Marker(location=[float(element['latitude']),float(element['longitude'])]).add_to(map)
             i -= 1      
        
 
