@@ -205,7 +205,7 @@ while True:
             map = folium.Map(world_copy_jump=False, no_wrap=False)
             folium.Marker(location=[float(element['latitude']),float(element['longitude'])]).add_to(map)
             i -= 1      
-       
+        map
 
     else:
         sys.exit(0)
