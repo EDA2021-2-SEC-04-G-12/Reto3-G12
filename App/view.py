@@ -194,18 +194,20 @@ while True:
         i = 1 
         while i <= 5 : 
             element = lt.getElement(datos,i)
-            printAvistaZone(element)
             map = folium.Map(world_copy_jump=False, no_wrap=False)
-            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<i>Mt. Hood Meadows</i>", tooltip = str(element['datetime']) + 
-            str(element['city']) + str(element['state']) + str(element['country']) + str(element['shape']) + str(element['duration (seconds)'])).add_to(map)
+            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<i>Mt. Hood Meadows</i>", tooltip = 'DATETIME: ' + str(element['datetime']) + 
+            ' CITY: ' + str(element['city']) + ' STATE: ' + str(element['state']) + ' COUNTRY: ' + str(element['country']) + ' SHAPE: ' + str(element['shape']) + 
+            ' DURATION (SECONDS): ' + str(element['duration (seconds)'])).add_to(map)
+            printAvistaZone(element)
             i += 1 
         i = size  
         while i > size-5 : 
             element = lt.getElement(datos,i)
-            printAvistaZone(element)
             map = folium.Map(world_copy_jump=False, no_wrap=False)
-            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<b>Timberline Lodge</b>", tooltip = str(element['datetime']) + 
-            str(element['city']) + str(element['state']) + str(element['country']) + str(element['shape']) + str(element['duration (seconds)'])).add_to(map)
+            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<b>Timberline Lodge</b>", tooltip = 'DATETIME: ' + str(element['datetime']) + 
+            ' CITY: ' + str(element['city']) + ' STATE: ' + str(element['state']) + ' COUNTRY: ' + str(element['country']) + ' SHAPE: ' + str(element['shape']) + 
+            ' DURATION (SECONDS): ' + str(element['duration (seconds)'])).add_to(map)
+            printAvistaZone(element)
             i -= 1      
         map.save('index.html')
 
