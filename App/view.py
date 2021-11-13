@@ -196,14 +196,14 @@ while True:
             element = lt.getElement(datos,i)
             printAvistaZone(element)
             map = folium.Map(world_copy_jump=False, no_wrap=False)
-            folium.Marker(location=[float(element['latitude']),float(element['longitude'])]).add_to(map)
+            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<i>Mt. Hood Meadows</i>").add_to(map)
             i += 1 
         i = size  
         while i > size-5 : 
             element = lt.getElement(datos,i)
             printAvistaZone(element)
             map = folium.Map(world_copy_jump=False, no_wrap=False)
-            folium.Marker(location=[float(element['latitude']),float(element['longitude'])]).add_to(map)
+            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<i>Mt. Hood Meadows</i>").add_to(map)
             i -= 1      
         map.save('index.html')
 
