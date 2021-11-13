@@ -203,7 +203,7 @@ while True:
             element = lt.getElement(datos,i)
             printAvistaZone(element)
             map = folium.Map(world_copy_jump=False, no_wrap=False)
-            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<i>Mt. Hood Meadows</i>").add_to(map)
+            folium.Marker([float(element['latitude']),float(element['longitude'])], popup="<b>Timberline Lodge</b>").add_to(map)
             i -= 1      
         map.save('index.html')
 
