@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_eb98c3b95e9a427687e3e0c0b1517305 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_eb98c3b95e9a427687e3e0c0b1517305" ></div>
+        
+</body>
+<script>    
+    
+            var map_eb98c3b95e9a427687e3e0c0b1517305 = L.map(
+                "map_eb98c3b95e9a427687e3e0c0b1517305",
+                {
+                    center: [0, 0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 1,
+                    zoomControl: true,
+                    preferCanvas: false,
+                    worldCopyJump: false,
+                    noWrap: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_3e9090dc24954aa78252cc45c96fbb9c = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_eb98c3b95e9a427687e3e0c0b1517305);
+        
+    
+            var marker_60c259d7648f41b29f6e128500612f61 = L.marker(
+                [32.77, -108.2797222],
+                {}
+            ).addTo(map_eb98c3b95e9a427687e3e0c0b1517305);
+        
+    
+        var popup_f7d0663028444b8380ca4300a0675d6c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_bd7f41fa9110483e80c08a729766d7d5 = $(`<div id="html_bd7f41fa9110483e80c08a729766d7d5" style="width: 100.0%; height: 100.0%;"><b>Timberline Lodge</b></div>`)[0];
+            popup_f7d0663028444b8380ca4300a0675d6c.setContent(html_bd7f41fa9110483e80c08a729766d7d5);
+        
+
+        marker_60c259d7648f41b29f6e128500612f61.bindPopup(popup_f7d0663028444b8380ca4300a0675d6c)
+        ;
+
+        
+    
+</script>
