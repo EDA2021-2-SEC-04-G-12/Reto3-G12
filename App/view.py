@@ -144,7 +144,7 @@ while True:
         horaInicial = input("Ingrese la hora inicial (HH:MM): ")
         horaFinal = input("Ingrese la hora final (HH:MM): ")
         datos = controller.countAvistabyHour(cont,horaInicial,horaFinal)
-        size = lt.size(prueba)
+        size = lt.size(datos)
         print(f"El total de avistamientos entre las fechas seleccionadas fue: {size}")
        
         print("Los primeros y últimos tres elementos en el rango son: \n")
