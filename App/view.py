@@ -122,7 +122,7 @@ while True:
         valores = controller.countAvistabyDuration(cont,limiteInf,limiteSup) 
         size = lt.size(valores[1])
         sizeMayor = valores[0]
-        print(f"El total de avistamientos en la mayor duracion registrada fue: {sizeMayor}\n")
+        print(f"El total de avistamientos en la mayor duracion  fue: {sizeMayor}\n")
         print(f"El total de avistamientos entre las duraciones seleccionadas fue: {size}\n")
         print("Los primeros y ultimos 3 en el rango de duracion son:")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
