@@ -184,7 +184,7 @@ def newDurationEntry(avista) :
 
 def newLongitudeEntry(avista) : 
     entry = {'lstAvista': None}
-    entry['lstAvista'] = lt.newList('SINGLE_LINKED',compareDurations)
+    entry['lstAvista'] = lt.newList('ARRAY_LIST',compareDurations)
     return entry 
 
 def newDurationEntry_2(duration,avista) : 
@@ -368,8 +368,8 @@ def compareLatitude(elem1,elem2) :
     return lat1 < lat2
 
 def compareCountrycity(elem1,elem2) : 
-    countryCity_1 = elem1['country'].lower() + "-" + elem1['city'].lower().strip(' ') 
-    countryCity_2 = elem2['country'].lower() + "-" + elem2['city'].lower().strip(' ') 
+    countryCity_1 = elem1['city'].lower() + "-" + elem1['country'].lower().strip(' ') 
+    countryCity_2 = elem2['city'].lower() + "-" + elem2['country'].lower().strip(' ') 
     return countryCity_1 < countryCity_2 
 
 
