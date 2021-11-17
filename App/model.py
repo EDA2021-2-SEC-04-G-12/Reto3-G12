@@ -195,8 +195,28 @@ def countAvistabyCity(analyzer, city):
     mer.sort(avistaCity,compareDateTime)
     return cities,avistaCity
 
+#FUNCION REQUERIMIENTO 2 
 
-
+def countAvistabyDuration (analyzer,limInferior,limSuperior) : 
+    keyMayor = om.maxKey(analyzer['duration (seconds)'])
+    mayores = om.get(analyzer['duration (seconds)'],keyMayor)
+    listmayores = lt.newList('ARRAY_LIST')
+    value = me.getValue(mayores)
+    for element in lt.iterator(value['lstAvista']) : 
+        lt.addLast(listmayores,element)
+    valoresRango = om.values(analyzer['duration (seconds)'],limInferior,limSuperior)
+    listValores = lt.newList('ARRAY_LIST')
+    for element in lt.iterator(valoresRango):
+        avistam =  element['lstAvista']
+        if lt.size(avistam) > 1 : 
+            mer.sort(avistam,compareCountrycity)
+            for avista in lt.iterator(element['lstAvista']) : 
+                lt.addLast(listValores,avista)
+        else : 
+            avista = lt.getElement(element['lstAvista'],1)
+            lt.addLast(listValores,avista)
+    return lt.size(listmayores), listValores
+        
 #FUNCIÓN REQUERIMIENTO 3
 
 def countAvistabyHour(analyzer,horaInicial,horaFinal) : 
@@ -266,6 +286,11 @@ def compareDates(date1, date2):
     else:
         return -1
 
+def compareDuration(elem1,elem2) : 
+    duration_1 = float(elem1['duration (seconds)'])
+    duration_2 = float(elem2['duration (seconds)'])
+    return duration_1 < duration_2
+
 def compareDurations(duration1,duration2): 
     if (float(duration1) == float(duration2)) : 
         return 0 
@@ -303,5 +328,11 @@ def compareLatitude(elem1,elem2) :
     lat1 = elem1['latitude']
     lat2 = elem2['latitude']
     return lat1 < lat2
+
+def compareCountrycity(elem1,elem2) : 
+    countryCity_1 = elem1['country'].lower() + "-" + elem1['city'].lower().strip(' ') 
+    countryCity_2 = elem2['country'].lower() + "-" + elem2['city'].lower().strip(' ') 
+    return countryCity_1 < countryCity_2 
+
 
 # Funciones de ordenamiento

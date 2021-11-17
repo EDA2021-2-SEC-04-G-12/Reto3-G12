@@ -50,7 +50,6 @@ def printMenu():
 catalog = None
 
 def printAvista(avista): 
-    print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
     datetimes = avista['datetime']
     dates = datetime.datetime.strptime(datetimes,'%Y-%m-%d %H:%M:%S')
     date = dates.date()
@@ -117,6 +116,29 @@ while True:
             element = lt.getElement(datos[1],i)
             printAvista(element)
             i-=1
+    elif int(inputs[0]) == 4 :
+        limiteInf = input("Ingrese el limite inferior: " )
+        limiteSup = input("Ingrese el limite superior: ")
+        valores = controller.countAvistabyDuration(cont,limiteInf,limiteSup) 
+        size = lt.size(valores[1])
+        sizeMayor = valores[0]
+        print(f"El total de avistamientos en la mayor duracion registrada fue: {sizeMayor}\n")
+        print(f"El total de avistamientos entre las duraciones seleccionadas fue: {size}\n")
+        print("Los primeros y ultimos 3 en el rango de duracion son:")
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
+        i = 1 
+        while i <= 3: 
+            element = lt.getElement(valores[1],i)
+            printAvista(element)
+            i += 1 
+        i = size 
+        while i > size-3 : 
+            element = lt.getElement(valores[1],i)
+            printAvista(element)
+            i-=1
+
 
     elif int(inputs[0]) == 5 : 
         horaInicial = input("Ingrese la hora inicial (HH:MM): ")
@@ -127,7 +149,6 @@ while True:
        
         print("Los primeros y últimos tres elementos en el rango son: \n")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
-        print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
         i = 1 
         while i <=3 : 
             element = lt.getElement(datos,i)

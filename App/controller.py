@@ -39,7 +39,7 @@ def init():
 # Funciones para la carga de datos
 
 def loadData(analyzer):
-    avistafile = cf.data_dir + 'UFOS-utf8-small.csv'
+    avistafile = cf.data_dir + 'UFOS-utf8-small.csv' 
     input_file = csv.DictReader(open(avistafile, encoding="utf-8"),
                                 delimiter=",")
     for avista in input_file:
@@ -64,6 +64,10 @@ def countAvistabyHour(analyzer,hourInicial,hourFinal):
     hour1 = datetime.time.fromisoformat(hourInicial)
     hour2 = datetime.time.fromisoformat(hourFinal)
     return model.countAvistabyHour(analyzer,hour1,hour2)
+
+def countAvistabyDuration(analyzer,limiteInf,limiteSup) :
+    return model.countAvistabyDuration(analyzer,limiteInf,limiteSup) 
+
 
 def countAvista(analyzer,fechaInicial,fechaFinal) :
     fecha_1 = datetime.date.fromisoformat(fechaInicial)
