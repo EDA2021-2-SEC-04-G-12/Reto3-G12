@@ -39,7 +39,7 @@ def init():
 # Funciones para la carga de datos
 
 def loadData(analyzer):
-    avistafile = cf.data_dir + 'UFOS-utf8-small.csv' 
+    avistafile = cf.data_dir + 'UFOS-utf8-large.csv' 
     input_file = csv.DictReader(open(avistafile, encoding="utf-8"),
                                 delimiter=",")
     for avista in input_file:

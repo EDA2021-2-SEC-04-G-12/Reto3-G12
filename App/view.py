@@ -106,6 +106,7 @@ while True:
         print("Los primeros y últimos tres elementos en el rango son: \n")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
         print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
         i = 1 
         while i <=3 : 
             element = lt.getElement(datos[1],i)
@@ -170,6 +171,7 @@ while True:
         print("Los primeros tres elementos en el rango son: \n")
         print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
         print("| datetime\t\t  | date\t   | city\t\t   | state\t| country\t| shape\t  | duration (seconds) |" )
+        print("+" + '-'*25 + '+' + '-'*16 +'+' + '-'*23 +'+' + '-'*12 +'+'+'-'*15+'+'+'-'*9+'+'+'-'*20+'+')
         i = 1 
         while i <=3 : 
             element = lt.getElement(prueba,i)
